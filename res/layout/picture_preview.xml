@@ -7,6 +7,6 @@
     <Button android:id="@+id/btnSet" android:layout_height="wrap_content" android:layout_width="match_parent" android:text="@string/btnShowFaceRec" android:onClick="onClickRec" android:visibility="gone"></Button>
     <Button android:layout_height="wrap_content" android:id="@+id/buttonListPictures" android:text="@string/btnListPictures" android:layout_width="match_parent" android:onClick="myListClick"></Button>
     <FrameLayout android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_gravity="center" android:id="@+id/picturelayout">
-        <ImageView android:id="@+id/imageView1" android:src="@drawable/testface1" android:layout_height="wrap_content" android:layout_width="wrap_content" android:layout_gravity="center_vertical|center_horizontal"></ImageView>
+        <ImageView android:id="@+id/imageView1" android:src="@drawable/testface1" android:layout_height="wrap_content" android:layout_width="wrap_content" android:layout_gravity="left|top"></ImageView>
     </FrameLayout>
 </LinearLayout>

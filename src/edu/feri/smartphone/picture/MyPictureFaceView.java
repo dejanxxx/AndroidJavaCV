@@ -296,11 +296,11 @@ public class MyPictureFaceView extends View {
 		float textWidth = paint.measureText(s);
 		canvas.drawText(s, (getWidth()-textWidth)/2, 20, paint);
 
-		if (faces != null) {
+		if (faces != null && faces.total()!=0) {
 			paint.setStrokeWidth(2);
 			paint.setStyle(Paint.Style.STROKE);
-			float scaleX = (float)getWidth()/grayImage.width();
-			float scaleY = (float)getHeight()/grayImage.height();
+			float scaleX = 1;//(float)getWidth()/grayImage.width();
+			float scaleY = 1;//(float)getHeight()/grayImage.height();
 			int total = faces.total();
 			for (int i = 0; i < total; i++) {
 				CvRect r = new CvRect(cvGetSeqElem(faces, i));
