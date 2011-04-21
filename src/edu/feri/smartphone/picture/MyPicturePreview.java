@@ -37,17 +37,21 @@ public class MyPicturePreview extends Activity {
 	            iv = (ImageView)findViewById(R.id.imageView1);
 	            mySetting = 0;
 	            edt = (EditText) findViewById(R.id.edt);
+	        	mpv = new MyPictureFaceView(this);
+	            layout.addView(mpv);
 	           
 	        } catch (Exception e) {
 	            e.printStackTrace();
 	            new AlertDialog.Builder(this).setMessage(e.getMessage()).create().show();
 	        }
 	    }
-
+		public void myListClick(View v) {
+			mpv.setIv2(iv);
+		}
 		public void onClickRec(View v) {
 			try {
-				mpv = new MyPictureFaceView(this);
-	            layout.addView(mpv);
+				//mpv = new MyPictureFaceView(this);
+	            //layout.addView(mpv);
 				mySetting = Integer.parseInt("1");//edt.getText().toString());
 				mpv.setMySettings(mySetting);
 				mpv.setIv(iv);
