@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="hello">Hello World, Main!</string>
+    <string name="app_name">AndroidJavaCV</string>
+    <string name="btnCamera">Camera</string>
+    <string name="btnPicture">Picture</string>
+    <string name="tvFace">Face recognition CV java demo</string>
+    <string name="btnShowFaceRec">Show recognition</string>
+</resources>
