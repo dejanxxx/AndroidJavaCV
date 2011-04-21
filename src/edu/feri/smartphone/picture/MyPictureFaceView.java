@@ -7,19 +7,29 @@ import static com.googlecode.javacv.cpp.opencv_core.cvLoad;
 import static com.googlecode.javacv.cpp.opencv_objdetect.CV_HAAR_DO_CANNY_PRUNING;
 import static com.googlecode.javacv.cpp.opencv_objdetect.cvHaarDetectObjects;
 
+import java.io.BufferedInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.File;
+import java.io.FileInputStream;
 import java.io.IOException;
+import java.io.InputStream;
+import java.net.URL;
+import java.net.URLConnection;
 import java.nio.ByteBuffer;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
 import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
+import android.graphics.Bitmap.CompressFormat;
+import android.graphics.drawable.BitmapDrawable;
+import android.graphics.drawable.Drawable;
 import android.hardware.Camera;
 import android.hardware.Camera.Size;
+import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
 
@@ -71,10 +81,67 @@ public class MyPictureFaceView extends View {
     
     public void setIv(ImageView iv) {
 		this.iv = iv;
-		Bitmap image = iv.getDrawingCache(true);
-		ByteBuffer bf = ByteBuffer.allocate(image.getHeight()*image.getWidth());
-		image.copyPixelsToBuffer(bf);
-		onPreviewFrame(bf.array(), image.getWidth(), image.getHeight());
+		
+		URL url;
+		Bitmap bm;
+        try {
+            url = new URL("http://zhoyakatsuki.files.wordpress.com/2010/01/emmanuelle-chriqui.png");
+            URLConnection conn=url.openConnection();
+            conn.connect();
+            InputStream is = conn.getInputStream();
+            BufferedInputStream bis = new BufferedInputStream(is);
+            bm = BitmapFactory.decodeStream(bis);
+            bis.close();
+            is.close();
+            
+            iv.setImageBitmap(bm);
+            
+            ByteArrayOutputStream bos = new ByteArrayOutputStream();
+            bm.compress(CompressFormat.PNG, 0 /*ignored for PNG*/, bos);
+    		byte[] bitmapdata = bos.toByteArray();
+    		
+    		int w =bm.getWidth();
+    		int h =bm.getHeight();
+    		onPreviewFrame(bitmapdata, w, h);
+        }
+        catch (Exception e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }
+
+		
+//        FileInputStream in;
+//        BufferedInputStream buf;
+//        try {
+//       	    in = new FileInputStream("/sdcard/test2.png");
+//            buf = new BufferedInputStream(in);
+//            Bitmap bMap = BitmapFactory.decodeStream(buf);
+//            iv.setImageBitmap(bMap);
+//            if (in != null) {
+//         	in.close();
+//            }
+//            if (buf != null) {
+//         	buf.close();
+//            }
+//            
+//        } catch (Exception e) {
+//            Log.e("Error reading file", e.toString());
+//        }
+	
+//		Bitmap image = ((BitmapDrawable)iv.getDrawable()).getBitmap();
+//		
+//		ByteArrayOutputStream bos = new ByteArrayOutputStream();
+//		bm.compress(CompressFormat.JPEG, 0 /*ignored for PNG*/, bos);
+//		byte[] bitmapdata = bos.toByteArray();
+//		
+////		Bitmap mIcon1 = BitmapFactory.decodeStream(url_value.openConnection().getInputStream());
+////        iv.setImageBitmap(mIcon1);
+//		Bitmap bMap = BitmapFactory.decodeFile("testface1.jpg");
+//        //image.setImageBitmap(bMap);
+//		
+//		ByteBuffer bf = ByteBuffer.allocate(image.getRowBytes()*image.getHeight());
+//		image.copyPixelsToBuffer(bf);
+//		onPreviewFrame(bitmapdata, image.getWidth(), image.getHeight());
 	}
 
 	public ImageView getIv() {
@@ -116,8 +183,8 @@ public class MyPictureFaceView extends View {
 
         faces = cvHaarDetectObjects(grayImage, classifier, storage, 1.1, 3, CV_HAAR_DO_CANNY_PRUNING);
         postInvalidate();  // refresh view
-        iv.invalidate();
-        invalidate();
+//        iv.invalidate();
+//        invalidate();
         cvClearMemStorage(storage);
     }
 

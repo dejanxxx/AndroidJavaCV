@@ -5,6 +5,7 @@ import java.io.IOException;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
@@ -35,7 +36,7 @@ public class MyPicturePreview extends Activity {
 	            layout = (FrameLayout)this.findViewById(R.id.picturelayout);
 	            iv = (ImageView)findViewById(R.id.imageView1);
 	            mySetting = 0;
-	            
+	            edt = (EditText) findViewById(R.id.edt);
 	           
 	        } catch (Exception e) {
 	            e.printStackTrace();
@@ -47,9 +48,12 @@ public class MyPicturePreview extends Activity {
 			try {
 				mpv = new MyPictureFaceView(this);
 	            layout.addView(mpv);
-				mySetting = Integer.parseInt(edt.getText().toString());
+				mySetting = Integer.parseInt("1");//edt.getText().toString());
 				mpv.setMySettings(mySetting);
+				mpv.setIv(iv);
 			} catch (Exception e) {
+				Log.e("MyPicturePreview", e.toString());
 			}
+			//mpv.setIv(iv);
 		}
 	}
