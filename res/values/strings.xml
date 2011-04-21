@@ -6,4 +6,5 @@
     <string name="btnPicture">Picture</string>
     <string name="tvFace">Face recognition CV java demo</string>
     <string name="btnShowFaceRec">Show recognition</string>
+    <string name="btnListPictures">ListPictures 4 assets dir</string>
 </resources>

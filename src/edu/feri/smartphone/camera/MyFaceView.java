@@ -71,6 +71,7 @@ public class MyFaceView extends View implements Camera.PreviewCallback {
      */
     public void onPreviewFrame(final byte[] data, final Camera camera) {
         final Camera.Size size = camera.getParameters().getPreviewSize();
+        System.out.println(camera.getParameters().getPreviewFormat());
         processingExecutor.execute(new Runnable() {
             public void run() {
                 processImage(data, size.width, size.height);
